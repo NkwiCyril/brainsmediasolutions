@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-echo "Running composer"
-composer global require hirak/prestissimo
+
+echo "Running composer install..."
 composer install --no-dev --working-dir=/var/www/html
+
+echo "Setting correct permissions..."
+sudo chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+sudo chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 echo "Caching config..."
 php artisan config:cache
